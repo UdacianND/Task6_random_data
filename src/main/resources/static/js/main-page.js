@@ -23,7 +23,6 @@ $(document).ready(function(){
     })
 
     function addRandomData(numberOfRows){
-        page++
         let country = $("#country option:selected").val()
         let numberOfErrors = $("#error").val()
         let seed = $("#seed").val()
@@ -53,6 +52,7 @@ $(document).ready(function(){
 
             }
         })
+        page++
     }
 
     $(window).scroll(
