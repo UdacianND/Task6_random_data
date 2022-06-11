@@ -13,11 +13,7 @@ public class UserInfoDto {
 
     @Override
     public String toString() {
-        return "UserInfoDto{" +
-                "id='" + id + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return fullName;
+
     }
 }

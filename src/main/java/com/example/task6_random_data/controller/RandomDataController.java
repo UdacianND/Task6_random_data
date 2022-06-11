@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,7 @@ public class RandomDataController {
     public List<UserInfoDto> getRandomData(
             @RequestBody RandomDataAttributeDto dataAttributeDto
             ){
+
         return randomDataService.getUserInfo(dataAttributeDto);
     }
 }

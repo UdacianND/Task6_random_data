@@ -42,6 +42,9 @@ $(document).ready(function(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success:function (response){
+                console.log(page)
+                console.log(response)
+                page++
                 for (let i = 0; i < response.length; i++) {
                     let user = response[i]
                     let newUser = $('<tr></tr><td>'+index+'</td> <td>'+user.id+'</td>'+
@@ -50,9 +53,10 @@ $(document).ready(function(){
                     index++
                 }
 
+
             }
         })
-        page++
+
     }
 
     $(window).scroll(
@@ -61,7 +65,8 @@ $(document).ready(function(){
             let offsetHeight = $(document.body).outerHeight();
             let clientHeight = document.documentElement.clientHeight;
             if (offsetHeight <= scrollTop + clientHeight) {
-                addRandomData(10)
+                    addRandomData(10)
+
             }
         }
     );

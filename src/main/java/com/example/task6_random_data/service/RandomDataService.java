@@ -13,17 +13,16 @@ import java.util.Random;
 @Service
 public class RandomDataService {
 
-    private Random random;
+    private Random random = new Random();;
     private Faker faker;
 
     public List<UserInfoDto> getUserInfo(RandomDataAttributeDto dataAttributeDto){
-        int SEED_PAGING_KEY = 1147349;
         double errors = dataAttributeDto.getErrors();
         int min = (int) Math.floor(errors);
         int max = (int) Math.ceil(errors);
-        int pageSeed = dataAttributeDto.getSeed() + (dataAttributeDto.getPage()-1)*SEED_PAGING_KEY;
-        random = new Random(pageSeed);
-        faker = new Faker(new Locale(dataAttributeDto.getCountry()), new Random(pageSeed));
+        int pageSeed = dataAttributeDto.getSeed() + dataAttributeDto.getPage();
+        random.setSeed(pageSeed);
+        faker = new Faker(new Locale(dataAttributeDto.getCountry()), random);
 
         List<UserInfoDto> users = new ArrayList<>();
         for (int i = 0; i < dataAttributeDto.getRows(); i++) {
@@ -39,7 +38,6 @@ public class RandomDataService {
         String address = faker.address().fullAddress();
         String phoneNumber = faker.phoneNumber().phoneNumber();
         UserInfoDto user = new UserInfoDto(id,fullName,address,phoneNumber);
-        System.out.println(user);
         invalidateUserInfo(user, errors);
         return user;
     }
