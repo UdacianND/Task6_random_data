@@ -41,6 +41,7 @@ $(document).ready(function(){
             data: dataInfo,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            async: false,
             success:function (response){
                 console.log(page)
                 console.log(response)
