@@ -46,13 +46,13 @@ public class RandomDataService {
 
     private void invalidateUserInfo(UserInfoDto userInfo, int errors){
         for (int i = 0; i < errors; i++) {
-            int fieldOrder = random.nextInt(4);
-            chooseFieldToAddError(userInfo, fieldOrder);
+            int fieldOrder = i % 4;
+            int methodOrder = (i / 4) % 3;
+            chooseFieldToAddError(userInfo, fieldOrder, methodOrder);
         }
     }
 
-    private void chooseFieldToAddError(UserInfoDto userInfo, int fieldOrder){
-        int methodOrder = random.nextInt(3);
+    private void chooseFieldToAddError(UserInfoDto userInfo, int fieldOrder, int methodOrder){
         switch (fieldOrder){
             case 0 -> userInfo.setId(chooseMethodToAddError(userInfo.getId(), methodOrder));
             case 1 -> userInfo.setFullName(chooseMethodToAddError(userInfo.getFullName(), methodOrder));
@@ -64,8 +64,8 @@ public class RandomDataService {
     private String chooseMethodToAddError(String data, int methodOrder){
         String invalidData;
         switch (methodOrder) {
-            case 0 -> invalidData = swap(data);
-            case 1 -> invalidData = addRandomChar(data);
+            case 0 -> invalidData = addRandomChar(data);
+            case 1 -> invalidData = swap(data);
             default -> invalidData = removeCharInRandomPosition(data);
         }
         return invalidData;
@@ -84,8 +84,7 @@ public class RandomDataService {
     }
 
     private String addRandomChar(String data){
-
-        String randomChar = faker.regexify("[a-z1]{1}");
+        char randomChar = (char)(random.nextInt(26) + 'a');
         if(data.length() == 0)
             return randomChar + data;
         int randomIndex = random.nextInt(data.length());

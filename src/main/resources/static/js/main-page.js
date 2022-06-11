@@ -12,6 +12,16 @@ $(document).ready(function(){
         addRandomData(20)
     })
 
+    $("#csv").click(function(){
+        console.log("******************")
+        $('table').each(function(){
+            console.log("===============")
+            let $table = $(this);
+            let csv = $table.table2CSV({delivery: 'value'});
+            downloadCSVFile(csv)
+        });
+    })
+
     function addRandomData(numberOfRows){
         let country = $("#country option:selected").val()
         let numberOfErrors = $("#error").val()
@@ -55,4 +65,21 @@ $(document).ready(function(){
             }
         }
     );
+
+    function downloadCSVFile(csv_data) {
+        let CSVFile = new Blob([csv_data], { type: "text/csv" });
+
+        let temp_link = document.createElement('a');
+
+        temp_link.download = "data.csv";
+        temp_link.href = window.URL.createObjectURL(CSVFile);
+
+        temp_link.style.display = "none";
+        document.body.appendChild(temp_link);
+
+        // Automatically click the link to trigger download
+        temp_link.click();
+        document.body.removeChild(temp_link);
+    }
+
 })
